@@ -3,16 +3,21 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="scan">Scan</string>
+    <string name="scan">QR Entrada</string>
+    <string name="autocar">QR Autocars</string>
     <string name="scan_only_qr_codes">Scan only QR Codes</string>
     <string name="info">Ticket info</string>
     <string name="ok">OK</string>
     <string name="contact">Contactar amb tècnic</string>
     <string name="not_accepted">Ticket no vàlid,consultar informació i tècninc</string>
     <string name="accepted">Ticket vàlid</string>
+    <string name="bus_accepted">Ticket vàlid per autocar</string>
+    <string name="bus_rejected">Ticket NO vàlid per autocar</string>
+
     <string name="ticket_id">TICKET ID</string>
     <string name="name">NOM COMPRADOR</string>
     <string name="hour">HORA ENTRADA / VALIDESA</string>
+    <string name="not_scaner_warning">Not valid scaner option</string>
 
 
 </resources>

@@ -3,12 +3,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/iMode"
+        android:src="@drawable/autocar" />
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="@string/info"
         android:id="@+id/bInfo"/>
+
+
 
     <ImageView
         android:layout_width="fill_parent"
@@ -27,7 +36,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:text="@string/ok"
         android:id="@+id/bBack"/>
 </LinearLayout>

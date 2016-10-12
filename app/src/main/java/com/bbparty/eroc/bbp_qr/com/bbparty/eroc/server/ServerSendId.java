@@ -27,7 +27,6 @@ public class ServerSendId extends AsyncTask<String, String, JSONObject> {
     public ServerSendId(){
         constants = new Constants();
         result = new JSONObject();
-
     }
 
     @Override
