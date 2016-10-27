@@ -9,15 +9,25 @@
     <string name="info">Ticket info</string>
     <string name="ok">OK</string>
     <string name="contact">Contactar amb tècnic</string>
-    <string name="not_accepted">Ticket no vàlid,consultar informació i tècninc</string>
+    <string name="not_accepted">Ticket no vàlid per BBP</string>
     <string name="accepted">Ticket vàlid</string>
-    <string name="bus_accepted">Ticket vàlid per autocar</string>
-    <string name="bus_rejected">Ticket NO vàlid per autocar</string>
+    <string name="ticket_in">Ticket ja registrat</string>
+    <string name="bus1_accepted">Ticket vàlid per autocar 00:30</string>
+    <string name="bus2_accepted">Ticket vàlid per autocar 01:30</string>
+    <string name="bus_rejected">Ticket BBP però NO vàlid per autocar</string>
+    <string name="internet_error">Error internet, TORNAR A ESCANEJAR!</string>
+    <string name="escaner_error">Error escanejant, TORNAR A ESCANEJAR!</string>
+    <string name="internet_error_info">No tens internet!</string>
 
-    <string name="ticket_id">TICKET ID</string>
-    <string name="name">NOM COMPRADOR</string>
-    <string name="hour">HORA ENTRADA / VALIDESA</string>
+    <string name="ticket_id">\u0020 TICKET ID</string>
+    <string name="ticket_type">\u0020 TIPUS</string>
+    <string name="name">\u0020 NOM COMPRADOR</string>
+    <string name="hour">\u0020 HORA ENTRADA / VALIDESA</string>
     <string name="not_scaner_warning">Not valid scaner option</string>
+    <string name="entrada1">NORMAL</string>
+    <string name="entrada2">BUS 00:30</string>
+    <string name="entrada3">BUS 01:30</string>
+
 
 
 </resources>

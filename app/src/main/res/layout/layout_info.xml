@@ -23,6 +23,21 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:text="@string/ticket_type"
+        android:background="#eeeeee"
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:id="@+id/info_ticketType"
+        android:text="bus"
+        android:gravity="center" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="@string/name"
         android:background="#eeeeee"
         android:textStyle="bold"

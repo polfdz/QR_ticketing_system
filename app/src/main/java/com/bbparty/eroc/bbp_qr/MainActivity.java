@@ -5,8 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
+
+import com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server.CheckInternetConnection;
 
 
 /**
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bScan.setOnClickListener(this);
         bAutocar = (Button) findViewById(R.id.bAutocar);
         bAutocar.setOnClickListener(this);
+
     }
 
     @Override
@@ -37,11 +39,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(this, QRScan.class);
                 intent.putExtra("scanner_option", "entrance"); //Entrada
                 startActivity(intent);
+                finish();
                 break;
             case R.id.bAutocar:
                 Intent intent2 = new Intent(this, QRScan.class);
                 intent2.putExtra("scanner_option", "autocar"); //Autocars
                 startActivity(intent2);
+                finish();
         }
     }
 
@@ -51,6 +55,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         super.onBackPressed();
         android.os.Process.killProcess(android.os.Process.myPid());
-
     }
 }

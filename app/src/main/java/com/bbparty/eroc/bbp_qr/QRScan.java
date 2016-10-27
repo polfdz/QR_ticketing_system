@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server.CheckInternetConnection;
 import com.google.zxing.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -62,7 +63,6 @@ public class QRScan extends AppCompatActivity implements ZXingScannerView.Result
         mScannerView.startCamera(); // Local method to handle camera init
     }
 
-
     @Override
     public void handleResult(Result rawResult) {
         // Do something with the result here
@@ -70,12 +70,23 @@ public class QRScan extends AppCompatActivity implements ZXingScannerView.Result
         Log.e("handler", rawResult.getText()); // Prints scan results
         Log.e("handler", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode)
 
-        mScannerView.stopCameraPreview();
+        //Check internet
+        if(CheckInternetConnection.isNetworkAvailable(this)){
+            mScannerView.stopCameraPreview();
+            Intent intent = new Intent(this, TicketId.class);
+            intent.putExtra("ticket_id", rawResult.getText());
+            intent.putExtra("scanner_option", scanner_option);
+            startActivity(intent);
+            finish();
+        }else{// NO INTERNET
+            mScannerView.stopCameraPreview();
+            popUpToast(getResources().getString(R.string.internet_error));
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
-        Intent intent = new Intent(this, TicketId.class);
-        intent.putExtra("ticket_id", rawResult.getText());
-        intent.putExtra("scanner_option", scanner_option);
-        startActivity(intent);
+
 
         // If you would like to resume scanning, call this method below:
         //mScannerView.resumeCameraPreview(this);
@@ -90,6 +101,7 @@ public class QRScan extends AppCompatActivity implements ZXingScannerView.Result
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }
