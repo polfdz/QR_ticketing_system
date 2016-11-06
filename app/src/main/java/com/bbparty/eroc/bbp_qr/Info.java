@@ -28,7 +28,7 @@ public class Info extends AppCompatActivity implements View.OnClickListener {
     String ticket_id, scanner_option;
     TextView tTicketId, tTicketType, tUserName, tHora;
     ServerGetTicketInfo serverGetTicketInfo;
-
+    SharedPreferencesHelper preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,17 +36,18 @@ public class Info extends AppCompatActivity implements View.OnClickListener {
 
         setContentView(R.layout.layout_info);
         context = getApplicationContext();
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            ticket_id = extras.getString("ticket_id");
-            scanner_option = extras.getString("scanner_option");
-        }
+        preferences = new SharedPreferencesHelper();
 
         tTicketId = (TextView) findViewById(R.id.info_ticketId);
         tTicketType = (TextView) findViewById(R.id.info_ticketType);
         tUserName = (TextView) findViewById(R.id.info_userName);
         tHora = (TextView) findViewById(R.id.info_hora);
+
+        Bundle extras = getIntent().getExtras();
+        scanner_option = preferences.getString(context,"scanner_option");
+        if (extras != null && scanner_option != null) {
+            ticket_id = extras.getString("ticket_id");
+        }
 
         //get info
         getTicketInfo(ticket_id);
@@ -62,7 +63,7 @@ public class Info extends AppCompatActivity implements View.OnClickListener {
                 String id = jsonObject.getString("id");
                 String nom = jsonObject.getString("nom");
                 String cognoms = jsonObject.getString("cognoms");
-                String hora = jsonObject.getString("hora_compra");
+                String hora = jsonObject.getString("hora_entrada");
                 String tipus = jsonObject.getString("entrada_tipus");
 
                 tTicketId.setText("["+id+"] "+ticket_id);
@@ -123,7 +124,7 @@ public class Info extends AppCompatActivity implements View.OnClickListener {
     public void goBack(){
         Intent intent = new Intent(this, TicketId.class);
         intent.putExtra("ticket_id", ticket_id);
-        intent.putExtra("scanner_option", scanner_option);
+        //intent.putExtra("scanner_option", scanner_option);
         startActivity(intent);
         finish();
     }

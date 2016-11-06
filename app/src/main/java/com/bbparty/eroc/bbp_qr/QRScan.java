@@ -29,6 +29,7 @@ public class QRScan extends AppCompatActivity implements ZXingScannerView.Result
     private ZXingScannerView mScannerView;
     private String scanner_option;
     private Context context;
+    SharedPreferencesHelper preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +38,15 @@ public class QRScan extends AppCompatActivity implements ZXingScannerView.Result
         mScannerView = new ZXingScannerView(this);   // Programmatically initialize the scanner view
         setContentView(mScannerView);
         context = getApplicationContext();
+        preferences = new SharedPreferencesHelper();
 
         mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
         mScannerView.startCamera();         // Start camera
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            scanner_option = extras.getString("scanner_option");
+        scanner_option = preferences.getString(context,"scanner_option");
+        //Log.d("EXTRAS TAG", extras.getString(""+getIntent().toString()));
+
+        if (scanner_option != null) {
+            //popUpToast(scanner_option);
         }else{
             popUpToast(getResources().getString(R.string.not_scaner_warning));
             Intent intent = new Intent(this, MainActivity.class);
@@ -75,7 +79,7 @@ public class QRScan extends AppCompatActivity implements ZXingScannerView.Result
             mScannerView.stopCameraPreview();
             Intent intent = new Intent(this, TicketId.class);
             intent.putExtra("ticket_id", rawResult.getText());
-            intent.putExtra("scanner_option", scanner_option);
+            //intent.putExtra("scanner_option", scanner_option);
             startActivity(intent);
             finish();
         }else{// NO INTERNET

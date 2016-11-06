@@ -17,12 +17,12 @@ import java.util.HashMap;
 /**
  * Created by Pol on 08/12/2015.
  */
-public class ServerValidateTicket_Bus extends AsyncTask<String, String, JSONObject> {
+public class ServerGetBusPlaces extends AsyncTask<String, String, JSONObject> {
     Constants constants;
     JSONObject result;
     String ticket_id;
     String bus_type;
-    public ServerValidateTicket_Bus(){
+    public ServerGetBusPlaces(){
         constants = new Constants();
         result = new JSONObject();
     }
@@ -36,9 +36,8 @@ public class ServerValidateTicket_Bus extends AsyncTask<String, String, JSONObje
     protected JSONObject doInBackground(String... userInfo) {
         while(!isCancelled()) {
             try {
-                ticket_id = userInfo[0];
-                bus_type = userInfo[1];
-                validateTicket_Bus(ticket_id, bus_type);
+                bus_type = userInfo[0];
+                getBusPlaces(bus_type);
             } catch (Exception e) {
                 Log.d("Error", e.getMessage());
             }
@@ -58,13 +57,12 @@ public class ServerValidateTicket_Bus extends AsyncTask<String, String, JSONObje
         super.onPostExecute(res);
     }
 
-    public JSONObject validateTicket_Bus(String _ticket_id, String _bus_type) {
+    public JSONObject getBusPlaces(String _bus_type) {
         AsyncHttpClient client = new SyncHttpClient();
         RequestParams rp = new RequestParams();
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("Authentication",constants.AUTH_KEY);
-        param.put("Function", "validateTicket_Bus");
-        param.put("qr", _ticket_id);
+        param.put("Function", "getBusPlaces");
         param.put("bus_type", _bus_type);
         RequestParams params = new RequestParams(param);
 
@@ -72,11 +70,14 @@ public class ServerValidateTicket_Bus extends AsyncTask<String, String, JSONObje
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jObject) {
                     result = jObject;
+                Log.d("BUSSPACE", result.toString());
             }
             @Override
             public void onFailure(int a, Header[] as, String aas, Throwable e) {
                 try {
-                    result.put("result", 503);
+                    result.put("MessageCode", 503);
+                    Log.d("BUSSPACE", result.toString());
+                    Log.d("BUSSPACE", e.toString());
                 } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
