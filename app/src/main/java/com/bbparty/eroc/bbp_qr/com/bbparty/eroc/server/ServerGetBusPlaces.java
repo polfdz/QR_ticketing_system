@@ -76,8 +76,6 @@ public class ServerGetBusPlaces extends AsyncTask<String, String, JSONObject> {
             public void onFailure(int a, Header[] as, String aas, Throwable e) {
                 try {
                     result.put("MessageCode", 503);
-                    Log.d("BUSSPACE", result.toString());
-                    Log.d("BUSSPACE", e.toString());
                 } catch (JSONException e1) {
                     e1.printStackTrace();
                 }

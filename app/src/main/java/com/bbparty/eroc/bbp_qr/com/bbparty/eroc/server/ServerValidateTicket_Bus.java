@@ -1,8 +1,11 @@
 package com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.bbparty.eroc.bbp_qr.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -18,6 +21,9 @@ import java.util.HashMap;
  * Created by Pol on 08/12/2015.
  */
 public class ServerValidateTicket_Bus extends AsyncTask<String, String, JSONObject> {
+    //Progressdialog to show while sending email
+    private ProgressDialog progressDialog;
+    private Context context;
     Constants constants;
     JSONObject result;
     String ticket_id;

@@ -1,6 +1,7 @@
 package com.bbparty.eroc.bbp_qr;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Handler;
@@ -178,4 +179,5 @@ public class ZXingScannerView extends BarcodeScannerView {
 
         return source;
     }
+
 }

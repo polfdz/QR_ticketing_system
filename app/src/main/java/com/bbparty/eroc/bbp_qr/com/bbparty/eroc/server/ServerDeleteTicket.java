@@ -1,19 +1,14 @@
 package com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.bbparty.eroc.bbp_qr.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,13 +17,11 @@ import java.util.HashMap;
 /**
  * Created by Pol on 08/12/2015.
  */
-public class ServerValidateTicket_Entrance extends AsyncTask<String, String, JSONObject> {
-    //Progressdialog to show while sending email
-    private Context context;
+public class ServerDeleteTicket extends AsyncTask<String, String, JSONObject> {
     Constants constants;
     JSONObject result;
     String ticket_id;
-    public ServerValidateTicket_Entrance(){
+    public ServerDeleteTicket(){
         constants = new Constants();
         result = new JSONObject();
     }
@@ -36,7 +29,6 @@ public class ServerValidateTicket_Entrance extends AsyncTask<String, String, JSO
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
     }
 
     @Override
@@ -44,7 +36,7 @@ public class ServerValidateTicket_Entrance extends AsyncTask<String, String, JSO
         while(!isCancelled()) {
             try {
                 ticket_id = userInfo[0];
-                validateTicket_Entrance(ticket_id);
+                deleteTicket(ticket_id);
             } catch (Exception e) {
                 Log.d("Error", e.getMessage());
             }
@@ -56,7 +48,6 @@ public class ServerValidateTicket_Entrance extends AsyncTask<String, String, JSO
 
     @Override
     protected void onProgressUpdate(String... progress) {
-
         Log.d("ANDRO_ASYNC", progress[0]);
     }
 
@@ -65,19 +56,19 @@ public class ServerValidateTicket_Entrance extends AsyncTask<String, String, JSO
         super.onPostExecute(res);
     }
 
-    public JSONObject validateTicket_Entrance(String _ticket_id) {
+    public JSONObject deleteTicket(String _ticket_id) {
         AsyncHttpClient client = new SyncHttpClient();
         RequestParams rp = new RequestParams();
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("Authentication",constants.AUTH_KEY);
-        param.put("Function", "validateTicket_Entrance");
+        param.put("Function", "deleteTicket");
         param.put("qr", _ticket_id);
         RequestParams params = new RequestParams(param);
 
         client.get(constants.BASE_URL + "webservice.php", params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jObject) {
-                result = jObject;
+                    result = jObject;
             }
             @Override
             public void onFailure(int a, Header[] as, String aas, Throwable e) {

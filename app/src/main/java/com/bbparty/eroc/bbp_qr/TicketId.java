@@ -2,16 +2,20 @@ package com.bbparty.eroc.bbp_qr;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server.CheckInternetConnection;
+import com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server.SendMail;
+import com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server.ServerDeleteTicket;
 import com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server.ServerGetBusPlaces;
 import com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server.ServerGetTotalPlaces;
 import com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server.ServerValidateTicket_Bus;
@@ -36,6 +40,7 @@ public class TicketId extends AppCompatActivity implements View.OnClickListener 
     ServerValidateTicket_Bus serverValidateTicket_Bus;
     ServerGetBusPlaces serverGetBusPlaces;
     ServerGetTotalPlaces serverGetTotalPlaces;
+    ServerDeleteTicket serverDeleteTicket;
     SharedPreferencesHelper preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,16 +73,16 @@ public class TicketId extends AppCompatActivity implements View.OnClickListener 
                 int check = checkTicket_Entrance(ticket_id);
                 iMode.setImageResource(R.drawable.bb_party_black_big);
                 if (check == 0) { //ticket valid
-                    iImage.setImageResource(R.drawable.accepted);
+                    iImage.setBackgroundResource(R.drawable.accepted);
                     tTicketId.setText(R.string.accepted);
                 }else if(check == 1) { //ticket already in
-                    iImage.setImageResource(R.drawable.rejected);
+                    iImage.setBackgroundResource(R.drawable.rejected);
                     tTicketId.setText(R.string.ticket_in);
                 }else if(check == 2){ //error
-                    iImage.setImageResource(R.drawable.rejected);
+                    iImage.setBackgroundResource(R.drawable.rejected);
                     tTicketId.setText(R.string.not_accepted);
                 }else if (check == 3){
-                    iImage.setImageResource(R.drawable.failed);
+                    iImage.setBackgroundResource(R.drawable.failed);
                     tTicketId.setText(R.string.internet_error);
                 }
                 checkTotalSpace();
@@ -94,22 +99,22 @@ public class TicketId extends AppCompatActivity implements View.OnClickListener 
                 int check = checkTicket_Autocar(ticket_id, "1");
                 iMode.setImageResource(R.drawable.autocar);
                 if(check == 200){ //bus 1
-                    iImage.setImageResource(R.drawable.bus1);
+                    iImage.setBackgroundResource(R.drawable.bus1);
                     tTicketId.setText(R.string.bus1_accepted);
                 }else if(check == 504){ //ticket doesn't exist
-                    iImage.setImageResource(R.drawable.rejected);
+                    iImage.setBackgroundResource(R.drawable.rejected);
                     tTicketId.setText(R.string.not_accepted);
                 }else if (check == 505) { //ticket not for bus
-                    iImage.setImageResource(R.drawable.bb_party_black_big);
+                    iImage.setBackgroundResource(R.drawable.bb_party_black_big);
                     tTicketId.setText(R.string.bus_rejected);
                 }else if(check == 506){
-                    iImage.setImageResource(R.drawable.bus2);
+                    iImage.setBackgroundResource(R.drawable.bus2);
                     tTicketId.setText(R.string.bus1_wrong_bus);
                 }else if(check == 507){
-                    iImage.setImageResource(R.drawable.rejected);
+                    iImage.setBackgroundResource(R.drawable.rejected);
                     tTicketId.setText(R.string.ticket_in);
                 }else{
-                    iImage.setImageResource(R.drawable.failed);
+                    iImage.setBackgroundResource(R.drawable.failed);
                     tTicketId.setText(R.string.internet_error_info);
                 }
                 checkBusSpace("1");
@@ -118,31 +123,46 @@ public class TicketId extends AppCompatActivity implements View.OnClickListener 
                 int check = checkTicket_Autocar(ticket_id, "2");
                 iMode.setImageResource(R.drawable.autocar);
                 if(check == 200){ //bus 2
-                    iImage.setImageResource(R.drawable.bus2);
+                    iImage.setBackgroundResource(R.drawable.bus2);
                     tTicketId.setText(R.string.bus2_accepted);
                 }else if(check == 504){ //ticket doesn't exist
-                    iImage.setImageResource(R.drawable.rejected);
+                    iImage.setBackgroundResource(R.drawable.rejected);
                     tTicketId.setText(R.string.not_accepted);
                 }else if (check == 505) { //ticket not for bus
-                    iImage.setImageResource(R.drawable.bb_party_black_big);
+                    iImage.setBackgroundResource(R.drawable.bb_party_black_big);
                     tTicketId.setText(R.string.bus_rejected);
                 }else if(check == 506){
-                    iImage.setImageResource(R.drawable.bus1);
+                    iImage.setBackgroundResource(R.drawable.bus1);
                     tTicketId.setText(R.string.bus2_wrong_bus);
                 }else if(check == 507){
-                    iImage.setImageResource(R.drawable.rejected);
+                    iImage.setBackgroundResource(R.drawable.rejected);
                     tTicketId.setText(R.string.ticket_in);
                 }else{
-                    iImage.setImageResource(R.drawable.failed);
+                    iImage.setBackgroundResource(R.drawable.failed);
                     tTicketId.setText(R.string.internet_error_info);
                 }
                 checkBusSpace("2");
+            }else if(scanner_option.equalsIgnoreCase("admin")){
+                tSpace.setVisibility(View.INVISIBLE);
+                String check = checkDeleteTicket(ticket_id);
+                iMode.setImageResource(R.drawable.settings);
+                if(check.equalsIgnoreCase("504")){
+                    iImage.setBackgroundResource(R.drawable.rejected);
+                    tTicketId.setText(R.string.nobbp);
+                }else if(check.equalsIgnoreCase("503") || check.equalsIgnoreCase("0")){
+                    iImage.setBackgroundResource(R.drawable.failed);
+                    tTicketId.setText(R.string.contact);
+                }else{
+                    tTicketId.setText(R.string.accepted);
+                    tTicketId.setText(R.string.deleted);
+                    sendEmail(check);
+                }
             }else{
-                iImage.setImageResource(R.drawable.ic_launcher);
+                iImage.setBackgroundResource(R.drawable.ic_launcher);
                 tTicketId.setText(R.string.contact);
             }
         }else{
-            iImage.setImageResource(R.drawable.ic_launcher);
+            iImage.setBackgroundResource(R.drawable.ic_launcher);
             tTicketId.setText(R.string.contact);
         }
     }
@@ -260,6 +280,50 @@ public class TicketId extends AppCompatActivity implements View.OnClickListener 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public String checkDeleteTicket(String _ticket_id){
+        //connexió amb servidor i retornar si el ticket ha sigut comprovat ja o no
+        //COMPROVAR SI QR EXISTEIX I/O SI JA HA ENTRAT
+        //modificar bd si no ha entrat --> a 1
+
+        Log.d("Track_ticket", _ticket_id);
+        serverDeleteTicket = new ServerDeleteTicket();
+        try {
+            JSONObject result = serverDeleteTicket.execute(_ticket_id).get();
+            int conn = result.getInt("MessageCode");
+            String email ="";
+            if(result.has("Email")){
+                email = result.getString("Email");
+            }
+            if(conn == 200){
+                return email;
+            }else{
+                return ""+conn;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return "0";
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return "0";
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return "0";
+        }finally {
+            serverDeleteTicket.cancel(true);
+        }
+    }
+    public void sendEmail(String email){
+
+        //Creating SendMail object
+        String subject = getResources().getString(R.string.mailSubject);
+        String message = getResources().getString(R.string.mailBody);
+
+        SendMail sm = new SendMail(this, email, subject, message);
+
+        //Executing sendmail to send email
+        sm.execute();
     }
 
     @Override

@@ -25,7 +25,7 @@ import com.bbparty.eroc.bbp_qr.com.bbparty.eroc.server.CheckInternetConnection;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button bScan, bBus1, bBus2;
+    Button bScan, bBus1, bBus2, bEroc;
     Context context;
     final static int CAMERA_RESULT = 0;
     SharedPreferencesHelper preferences;
@@ -42,10 +42,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bScan = (Button) findViewById(R.id.bScan);
         bBus1 = (Button) findViewById(R.id.bBus1);
         bBus2 = (Button) findViewById(R.id.bBus2);
+        bEroc = (Button) findViewById(R.id.bEroc);
 
         bScan.setOnClickListener(this);
         bBus1.setOnClickListener(this);
         bBus2.setOnClickListener(this);
+        bEroc.setOnClickListener(this);
 
         preferences = new SharedPreferencesHelper();
     }
@@ -74,6 +76,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent3);
                 finish();
                 break;
+            case R.id.bEroc:
+                Intent intent4 = new Intent(this, Admin.class);
+                preferences.putString(context, "scanner_option", "admin"); //admin
+                startActivity(intent4);
+                finish();
+
         }
     }
 

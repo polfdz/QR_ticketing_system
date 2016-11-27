@@ -130,6 +130,8 @@ public class Info extends AppCompatActivity implements View.OnClickListener {
     }
     @Override
     public void onBackPressed() {
-        goBack();
+
+        super.onBackPressed();
+        finish();
     }
 }

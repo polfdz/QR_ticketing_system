@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
     defaultConfig {
@@ -25,4 +25,7 @@ dependencies {
     compile 'me.dm7.barcodescanner:zxing:1.9'
     compile files('libs/android-async-http-1.4.6.jar')
     compile files('libs/httpcore-4.0-alpha5.jar')
+    compile files('libs/activation.jar')
+    compile files('libs/additionnal.jar')
+    compile files('libs/mail.jar')
 }

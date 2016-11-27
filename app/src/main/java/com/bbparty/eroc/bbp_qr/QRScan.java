@@ -47,7 +47,7 @@ public class QRScan extends AppCompatActivity implements ZXingScannerView.Result
 
         if (scanner_option != null) {
             //popUpToast(scanner_option);
-        }else{
+        }else{ //error d'entrada
             popUpToast(getResources().getString(R.string.not_scaner_warning));
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
