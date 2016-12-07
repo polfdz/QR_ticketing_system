@@ -44,7 +44,7 @@
     <string name="sendingMessage">Enviant email.</string>
     <string name="pleaseWait">Siusplau espera...</string>
     <string name="correuEnviat">Correu Enviat!</string>
-    <string name="mailBody">La teva solicitud per la Big Bang Party 2017 ha sigut cancelada.\n\nSi vols tornar a solicitar entrades accedeix a wwww.bigbangparty2017.com.\n\nAtentament,\n\nBig Bang Grup.</string>
+    <string name="mailBody">Hola!\n\n Com que no vas venir a buscar la teva entrada, t\'avisem que la teva reserva ha quedat anul·lada.\nSi encara tens ganes de venir a la festa, podràs tornar a fer una reserva des de la nostra web www.bigbangparty2017.com.\nAnunciarem els dies i horaris per realitzar noves solicituds a través de les nostres xarxes socials.\n\nMoltes gràcies,\n\nBig Bang Grup.</string>
     <string name="mailSubject">[CANCELACIÓ] Big Bang Party 2017</string>
     <string name="adminWarning">Panel de cancelació d\'entrades.\nUn cop llegit el codi QR s\'eliminarà la entrada i s\'enviarà un correu a la persona corresponent.\nAquesta entrada ja no serà vàlida per la BBP.</string>
 
